@@ -29,11 +29,11 @@ class TodoService with ChangeNotifier {
   ];
   final _doneItems = [
     Todo(
-      title: 'Buy cat food',
-      description:
-          'Cat food is a dairy product produced by the milk cow of the animal kingdom.',
-      completed: true,
-    )
+        title: 'Buy cat food',
+        description:
+            'Cat food is a dairy product produced by the milk cow of the animal kingdom.',
+        completed: true,
+        completedAt: DateTime.now())
   ];
 
   UnmodifiableListView<Todo> get doneItems => UnmodifiableListView(_doneItems);

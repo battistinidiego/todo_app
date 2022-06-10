@@ -46,9 +46,7 @@ class InfoPage extends StatelessWidget {
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.secondary)),
-                  Text(item.completed
-                      ? "${item.completedAt?.day}/${item.completedAt?.month}/${item.completedAt?.year} at ${item.completedAt?.hour}:${item.completedAt?.minute}"
-                      : 'No'),
+                  Text(item.completedAtString),
                 ],
               ),
             ],

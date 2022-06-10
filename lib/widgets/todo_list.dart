@@ -20,6 +20,8 @@ class TodoList extends StatelessWidget {
               child: GestureDetector(
                 onLongPress: () => Navigator.push(
                     context,
+
+                    // TODO: usa route generator
                     MaterialPageRoute(
                         builder: (context) =>
                             InfoPage(item: todoCollection[index]))),
