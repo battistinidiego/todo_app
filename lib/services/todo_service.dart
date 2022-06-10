@@ -27,25 +27,45 @@ class TodoService with ChangeNotifier {
           'Cheese is a food produced by the cow of the animal kingdom.',
     ),
   ];
+  final _doneItems = [
+    Todo(
+      title: 'Buy cat food',
+      description:
+          'Cat food is a dairy product produced by the milk cow of the animal kingdom.',
+      completed: true,
+    )
+  ];
+
+  UnmodifiableListView<Todo> get doneItems => UnmodifiableListView(_doneItems);
 
   UnmodifiableListView<Todo> get items => UnmodifiableListView(_items);
-
-  void add(Todo item) {
-    _items.add(item);
-  }
-
-  void remove(Todo item) {
-    _items.remove(item);
-  }
 
   void complete(Todo item) {
     if (item.completed) {
       item.completed = false;
+      waitAnimationThenRemove(_doneItems, item);
+      waitAnimationThenAdd(_items, item);
     } else {
       item.completedAt = DateTime.now();
       item.completed = true;
+      waitAnimationThenAdd(_doneItems, item);
+      waitAnimationThenRemove(_items, item);
     }
 
     notifyListeners();
+  }
+
+  void waitAnimationThenRemove(List<Todo> collection, Todo item) {
+    Future.delayed(const Duration(milliseconds: 400), () {
+      collection.remove(item);
+      notifyListeners();
+    });
+  }
+
+  void waitAnimationThenAdd(List<Todo> collection, Todo item) {
+    Future.delayed(const Duration(milliseconds: 400), () {
+      collection.add(item);
+      notifyListeners();
+    });
   }
 }

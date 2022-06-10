@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/routes/info_page.dart';
 import 'package:todo_app/services/todo_service.dart';
+import 'package:todo_app/widgets/todo_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,50 +11,45 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+  String _appBarTitle = 'Todos';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        // ignore: avoid_returning_null_for_void
-        onPressed: () => null,
-        child: const Icon(Icons.add),
-      ),
+          onPressed: () => null, child: const Icon(Icons.add)),
       appBar: AppBar(
-        title: const Text('Todo'),
+        title: Text(_appBarTitle),
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (int index) {
+          setState(() {
+            _selectedIndex = index;
+            _selectedIndex == 0
+                ? _appBarTitle = 'Todos'
+                : _appBarTitle = 'Done';
+          });
+        },
+        destinations: const [
+          NavigationDestination(
+            icon: Icon(Icons.error_outline),
+            label: 'Todos',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.done_all_outlined),
+            label: 'Done',
+          ),
+        ],
       ),
       body: Consumer<TodoService>(
-        builder: (context, todoService, _) => Center(
-          child: ListView.builder(
-              itemCount: todoService.items.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: GestureDetector(
-                    onLongPress: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                InfoPage(item: todoService.items[index]))),
-                    child: CheckboxListTile(
-                        isThreeLine: true,
-                        value: todoService.items[index].completed,
-                        title: Text(todoService.items[index].title),
-                        subtitle: Text(todoService.items[index].description),
-                        activeColor: Theme.of(context).colorScheme.primary,
-                        checkColor: Theme.of(context).colorScheme.background,
-                        checkboxShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        onChanged: (value) {
-                          todoService.complete(todoService.items[index]);
-                        }),
-                  ),
-                );
-              }),
-        ),
+        builder: ((context, value, child) {
+          return _selectedIndex == 0
+              ? TodoList(todoCollection: value.items)
+              : TodoList(todoCollection: value.doneItems);
+        }),
       ),
     );
   }
