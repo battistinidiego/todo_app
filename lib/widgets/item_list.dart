@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/todo.dart';
-import 'package:todo_app/routes/info_page.dart';
 import 'package:todo_app/services/todo_service.dart';
 
 class ItemList extends StatelessWidget {
@@ -19,17 +18,8 @@ class ItemList extends StatelessWidget {
               builder: (context, provider, _) => Padding(
                 padding: const EdgeInsets.all(8),
                 child: GestureDetector(
-                  onLongPress: () => Navigator.pushNamed(
-                    context,
-                    '/info',
-                    arguments: InfoPageHelper(
-                        item: todoCollection[index],
-                        onComplete: () => context
-                            .watch<TodoService>()
-                            .complete(todoCollection[index]),
-                        onDelete: () => print('delete'),
-                        onEdit: () => print('edit')),
-                  ),
+                  onLongPress: () => Navigator.pushNamed(context, '/info',
+                      arguments: todoCollection[index]),
                   child: CheckboxListTile(
                       value: todoCollection[index].completed,
                       title: Text(todoCollection[index].title),
