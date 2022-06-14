@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/routes/home_page.dart';
+import 'package:todo_app/route.dart';
 import 'package:todo_app/services/todo_service.dart';
 
 void main() {
@@ -12,14 +12,15 @@ class TodoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.red)),
-      home: ChangeNotifierProvider<TodoService>(
-        create: (context) => TodoService(),
-        child: const HomePage(),
-      ),
+    return ChangeNotifierProvider<TodoService>(
+      create: (context) => TodoService(),
+      child: MaterialApp(
+          initialRoute: RouteGenerator.homePageRouteName, // '/'
+          onGenerateRoute: RouteGenerator.routeGenerator,
+          title: 'Todo',
+          theme: ThemeData(
+              useMaterial3: true,
+              colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange))),
     );
   }
 }

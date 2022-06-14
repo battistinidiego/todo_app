@@ -68,4 +68,14 @@ class TodoService with ChangeNotifier {
       notifyListeners();
     });
   }
+
+  void add(Todo item) {
+    _items.add(item);
+    notifyListeners();
+  }
+
+  void delete(Todo item) {
+    items.contains(item) ? _items.remove(item) : _doneItems.remove(item);
+    notifyListeners();
+  }
 }
