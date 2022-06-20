@@ -47,7 +47,7 @@ class InfoPage extends StatelessWidget {
             title: Text(item.title),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

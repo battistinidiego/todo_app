@@ -10,35 +10,33 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListView.builder(
-          itemCount: todoCollection.length,
-          itemBuilder: (context, index) {
-            return Consumer<TodoService>(
-              builder: (context, provider, _) => Padding(
-                padding: const EdgeInsets.all(8),
-                child: GestureDetector(
-                  onLongPress: () => Navigator.pushNamed(context, '/info',
-                      arguments: todoCollection[index]),
-                  child: CheckboxListTile(
-                      value: todoCollection[index].completed,
-                      title: Text(todoCollection[index].title),
-                      subtitle: Text(todoCollection[index].description),
-                      activeColor: Theme.of(context).colorScheme.primary,
-                      checkColor: Theme.of(context).colorScheme.background,
-                      checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      onChanged: (_) {
-                        provider.complete(todoCollection[index]);
-                      }),
-                ),
+    return ListView.builder(
+        itemCount: todoCollection.length,
+        itemBuilder: (context, index) {
+          return Consumer<TodoService>(
+            builder: (context, provider, _) => Padding(
+              padding: const EdgeInsets.all(8),
+              child: GestureDetector(
+                onLongPress: () => Navigator.pushNamed(context, '/info',
+                    arguments: todoCollection[index]),
+                child: CheckboxListTile(
+                    value: todoCollection[index].completed,
+                    title: Text(todoCollection[index].title),
+                    subtitle: Text(todoCollection[index].description),
+                    activeColor: Theme.of(context).colorScheme.primary,
+                    checkColor: Theme.of(context).colorScheme.background,
+                    checkboxShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    onChanged: (_) {
+                      provider.complete(todoCollection[index]);
+                    }),
               ),
-            );
-          }),
-    );
+            ),
+          );
+        });
   }
 }

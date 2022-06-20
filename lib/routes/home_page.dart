@@ -27,6 +27,11 @@ class _HomePageState extends State<HomePage> {
                     )),
             child: const Icon(Icons.add)),
         appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () => Navigator.pushNamed(context, '/settings'),
+                icon: const Icon(Icons.settings_outlined))
+          ],
           title: const Text("Home"),
         ),
         bottomNavigationBar: NavigationBar(
