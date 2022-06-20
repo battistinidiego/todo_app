@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/todo.dart';
-import 'package:todo_app/services/todo_service.dart';
+import 'package:todo_app/view_models/todo_view_model.dart';
 
 class ItemList extends StatelessWidget {
   final List<Todo> todoCollection;
@@ -13,7 +13,7 @@ class ItemList extends StatelessWidget {
     return ListView.builder(
         itemCount: todoCollection.length,
         itemBuilder: (context, index) {
-          return Consumer<TodoService>(
+          return Consumer<TodoViewModel>(
             builder: (context, provider, _) => Padding(
               padding: const EdgeInsets.all(8),
               child: GestureDetector(

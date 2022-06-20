@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app/services/todo_service.dart';
+import 'package:todo_app/view_models/todo_view_model.dart';
 import 'package:todo_app/widgets/dialogs/new_item_dialog.dart';
 import 'package:todo_app/widgets/item_list.dart';
 
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
         floatingActionButton: FloatingActionButton(
             onPressed: () => showDialog(
                 context: context,
-                builder: (context) => Consumer<TodoService>(
+                builder: (context) => Consumer<TodoViewModel>(
                       builder: (context, value, _) => NewItemDialog(
                           onNewItem: ((newItem) => value.add(newItem))),
                     )),
@@ -53,8 +53,8 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: [
-          ItemList(todoCollection: context.watch<TodoService>().items),
-          ItemList(todoCollection: context.watch<TodoService>().doneItems)
+          ItemList(todoCollection: context.watch<TodoViewModel>().items),
+          ItemList(todoCollection: context.watch<TodoViewModel>().doneItems)
         ][_selectedIndex]);
   }
 }

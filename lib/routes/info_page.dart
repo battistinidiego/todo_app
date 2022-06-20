@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/models/todo.dart';
-import 'package:todo_app/services/todo_service.dart';
+import 'package:todo_app/view_models/todo_view_model.dart';
 
 class InfoPage extends StatelessWidget {
   final Todo item;
@@ -13,7 +13,7 @@ class InfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TodoService>(
+    return Consumer<TodoViewModel>(
       builder: (context, provider, _) => Scaffold(
           floatingActionButton:
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -59,7 +59,7 @@ class InfoPage extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.secondary)),
-                    Text(item.completedAtString),
+                    Text(item.completedAtToString),
                   ],
                 ),
               ],

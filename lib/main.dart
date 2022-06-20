@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app/route.dart';
+import 'package:todo_app/services/local_storage_service.dart';
 import 'package:todo_app/services/theme_service.dart';
-import 'package:todo_app/services/todo_service.dart';
+import 'package:todo_app/view_models/todo_view_model.dart';
 
-void main() {
+void main() async {
+  final localStorageService = LocalStorageService();
+  await localStorageService.initializeHive();
   runApp(const TodoApp());
 }
 
@@ -15,7 +18,7 @@ class TodoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<TodoService>(create: (_) => TodoService()),
+        ChangeNotifierProvider<TodoViewModel>(create: (_) => TodoViewModel()),
         ChangeNotifierProvider<ThemeService>(create: (_) => ThemeService()),
       ],
       child: Builder(builder: (context) {
