@@ -4,12 +4,12 @@ import 'package:todo_app/models/todo.dart';
 import 'package:todo_app/view_models/todo_view_model.dart';
 
 class InfoPage extends StatelessWidget {
-  final Todo item;
-
   const InfoPage({
     Key? key,
     required this.item,
   }) : super(key: key);
+
+  final Todo item;
 
   @override
   Widget build(BuildContext context) {

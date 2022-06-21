@@ -4,6 +4,7 @@ import 'package:todo_app/services/local_storage_service.dart';
 
 class TodoViewModel extends ChangeNotifier {
   List<Todo> get items => LocalStorageService().getAllItems();
+
   List<Todo> get doneItems => LocalStorageService().getAllDoneItems();
 
   void add(Todo item) {

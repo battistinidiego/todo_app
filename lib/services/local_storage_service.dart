@@ -2,18 +2,18 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_app/models/todo.dart';
 
 class LocalStorageService {
-  // Singleton pattern implementation
-
-  static final LocalStorageService _instance = LocalStorageService._internal();
-
   factory LocalStorageService() {
     return _instance;
   }
 
   LocalStorageService._internal();
 
-  static const String _itemsBoxKey = 'todo_box';
   static const String _doneItemsBoxKey = 'done_box';
+  // Singleton pattern implementation
+
+  static final LocalStorageService _instance = LocalStorageService._internal();
+
+  static const String _itemsBoxKey = 'todo_box';
 
   Future<void> initializeHive() async {
     await Hive.initFlutter();
@@ -28,6 +28,7 @@ class LocalStorageService {
   }
 
   List<Todo> getAllItems() => Hive.box<Todo>(_itemsBoxKey).values.toList();
+
   List<Todo> getAllDoneItems() =>
       Hive.box<Todo>(_doneItemsBoxKey).values.toList();
 
