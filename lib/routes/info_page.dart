@@ -17,13 +17,6 @@ class InfoPage extends StatelessWidget {
       builder: (context, provider, _) => Scaffold(
           floatingActionButton:
               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-            FloatingActionButton(
-              heroTag: 'InfoEdit_fab',
-              onPressed: () {
-                return;
-              },
-              child: const Icon(Icons.edit_outlined),
-            ),
             const SizedBox(width: 10),
             FloatingActionButton(
               heroTag: 'infoDelete_fab',
